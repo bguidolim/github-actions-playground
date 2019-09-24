@@ -1,6 +1,7 @@
 name: Playground
 
-on: commit_comment
+on:
+  commit_comment
 
 jobs:
   spitout:
