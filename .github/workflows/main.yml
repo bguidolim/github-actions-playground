@@ -2,6 +2,7 @@ name: Playground
 
 on:
   pull_request:
+    types: [edited]
     branches:
       - master
   issue_comment:
