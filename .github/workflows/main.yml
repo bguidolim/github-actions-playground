@@ -1,12 +1,6 @@
 name: Playground
 
-on:
-  pull_request:
-    types: [edited]
-    branches:
-      - master
-  issue_comment:
-    types: [created]
+on: commit_comment
 
 jobs:
   spitout:
