@@ -9,15 +9,24 @@ jobs:
     runs-on: ubuntu-18.04
     name: Check event and maybe build
     steps:
-      - name: Checkout repository
       - uses: actions/checkout@v1
-        with:
-          ref: refs/pull/2/merge
+      - name: Echo event
         run: |
-          echo 'bla bla'
-      - name: Check deploy command
+          echo $GITHUB_EVENT_PATH
+          jq .comment.body $GITHUB_EVENT_PATH
+          cat $GITHUB_EVENT_PATH
+      - name: Check if /qa was in comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if:  github.event.comment.body == 'deploy this please'
+        if:  contains(github.event.comment.body, '/qa') == true
         run: |
           echo Build stuff NOW...
+          export PR_URL=`jq -r .issue.pull_request.url $GITHUB_EVENT_PATH`
+          echo $PR_URL
+          # Get PR object and extract latest PR branch commit
+          export SHA=`curl -H "Authorization: $GITHUB_TOKEN" $PR_URL | jq -r .head.sha`
+          echo $SHA
+          git checkout $SHA
+          echo "=========="
+          echo "=========="
+          git log -1
