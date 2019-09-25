@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
-          ref: refs/pull/${PULL_REQUEST_NUMBER}/merge
+          ref: refs/pull/${{ github.event.issue.number }}/merge
       - name: Echo event
         env:
           PULL_REQUEST_NUMBER: ${{ github.event.issue.number }}
