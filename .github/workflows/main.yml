@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Echo event
         env:
-          PULL_REQUEST_NUMBER: {{ github.event.issue.number }}
+          PULL_REQUEST_NUMBER: ${{ github.event.issue.number }}
         run: |
           echo $PULL_REQUEST_NUMBER
           echo $GITHUB_EVENT_PATH
