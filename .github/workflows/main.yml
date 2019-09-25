@@ -15,7 +15,9 @@ jobs:
       - name: Echo event
         env:
           PULL_REQUEST_NUMBER: ${{ github.event.issue.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo $GITHUB_TOKEN 
           echo $GITHUB_TOKEN >> test.txt
           cat test.txt
           echo $PULL_REQUEST_NUMBER
