@@ -10,11 +10,13 @@ jobs:
     name: Check event and maybe build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v1
         with:
           ref: refs/pull/2/merge
+      - env:
+          PULL_REQUEST_NUMBER: {{ github.event.comment.pull_request.number }}
         run: |
-          echo 'Bla bla'
+          echo $PULL_REQUEST_NUMBER
       - name: Check deploy command
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
