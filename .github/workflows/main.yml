@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
+          with:
+            ref: refs/pull/$PULL_REQUEST_NUMBER/merge
         env:
           PULL_REQUEST_NUMBER: {{ github.event.comment.pull_request.number }}
-        with:
-          ref: refs/pull/$PULL_REQUEST_NUMBER/merge
         run: |
           echo $GITHUB_EVENT_PATH
           jq .comment.body $GITHUB_EVENT_PATH
