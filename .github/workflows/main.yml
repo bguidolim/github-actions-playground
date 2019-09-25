@@ -10,6 +10,8 @@ jobs:
     name: Check event and maybe build
     steps:
       - uses: actions/checkout@v1
+        with:
+          ref: refs/pull/${{ PULL_REQUEST_NUMBER }}/merge
       - name: Echo event
         env:
           PULL_REQUEST_NUMBER: ${{ github.event.issue.number }}
