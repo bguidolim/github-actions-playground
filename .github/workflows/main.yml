@@ -14,7 +14,7 @@ jobs:
         with:
           ref: refs/pull/2/merge
       - env:
-          PULL_REQUEST_NUMBER: {{ github.event.comment.pull_request.number }}
+          PULL_REQUEST_NUMBER: {{ github.event.issue.pull_request.number }}
         run: |
           echo $PULL_REQUEST_NUMBER
       - name: Check deploy command
