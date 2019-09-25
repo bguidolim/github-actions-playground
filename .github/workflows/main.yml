@@ -11,14 +11,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
-          with:
-            ref: refs/pull/2/merge
+        with:
+          ref: refs/pull/2/merge
         env:
           PULL_REQUEST_NUMBER: {{ github.event.comment.pull_request.number }}
         run: |
-          echo $GITHUB_EVENT_PATH
-          jq .comment.body $GITHUB_EVENT_PATH
-          cat $GITHUB_EVENT_PATH
+          echo $PULL_REQUEST_NUMBER
       - name: Check deploy command
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
