@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v1
           with:
-            ref: refs/pull/$PULL_REQUEST_NUMBER/merge
+            ref: refs/pull/2/merge
         env:
           PULL_REQUEST_NUMBER: {{ github.event.comment.pull_request.number }}
         run: |
