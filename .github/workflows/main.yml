@@ -1,22 +1,27 @@
 name: Playground
 
 on:
-  commit_comment
+  issue_comment:
+    types: [created]
 
 jobs:
   spitout:
     runs-on: ubuntu-18.04
     name: Check event and maybe build
     steps:
-      - uses: actions/checkout@v1
-      - name: Echo event
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        env:
+          PULL_REQUEST_NUMBER: {{ github.event.comment.pull_request.number }}
+        with:
+          ref: refs/pull/$PULL_REQUEST_NUMBER/merge
         run: |
           echo $GITHUB_EVENT_PATH
           jq .comment.body $GITHUB_EVENT_PATH
           cat $GITHUB_EVENT_PATH
-      - name: Check if /qa was in comment
+      - name: Check deploy command
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if:  contains(github.event.comment.body, '/qa') == true
+        if:  github.event.comment.body == 'deploy this please'
         run: |
           echo Build stuff NOW...
